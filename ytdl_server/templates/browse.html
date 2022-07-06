@@ -1,0 +1,39 @@
+<!doctype html>
+<title>YTDL Server</title>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<h2>Links:</h2>
+<p>
+    <a href="/rip">rip</a><br>
+    <a href="/browse/">browse</a>
+Yolo this is a test Yolo
+</p>
+
+<h2>Main Player:</h2>
+<audio id="mainPlayer" controls loop>
+  <source src="{{ url_for('serve_music', filename='wdance-ljSITVHdJ5c.mp3') }}" type="audio/mp3"><br>
+Your browser does not support the audio element.
+</audio>
+
+{%- if files|length > 0 -%}
+    <p>MP3 Audio:</p>
+    <ol>
+        {%- for f in files -%}
+        {#- set audio_out, audio_download = url_for('serve_music', filename=f) -#}
+        <li id="songListing">
+            <button onclick="document.getElementById('mainPlayer').src='{{ url_for('serve_music', filename=f) }}'; document.getElementById('mainPlayer').play();">[Play]</button>
+            <button onclick="document.getElementById('mainPlayer').src='{{ url_for('serve_music', filename=f) }}'; document.getElementById('mainPlayer').pause();">[Pause]</button>
+            <a href="{{ url_for('serve_music', filename=f) }}">{{ f }}</a>
+{# Old, individual in-line players:
+            <audio controls loop>
+                <source src="{{ url_for('serve_music', filename=f) }}" type="audio/mp3"><br>
+Your browser does not support the audio element.
+            </audio>
+#}
+        </li>
+        {%- endfor -%}
+    </ol>
+{%- else -%}
+<p>Nobody here but us chickens!  Head to the ripper page to download new media!</p>
+{%- endif -%}
