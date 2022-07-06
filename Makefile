@@ -9,8 +9,8 @@ test: devinstall
 	pytest
 
 clean-dist:
-	/bin/rm -r ../ytdl-workspace/dist
-	mkdir ../ytdl-workspace/dist
+	test -d "$(ROOT_DIR)/dist" && \rm -r "$(ROOT_DIR)/dist" || echo "DIR: $(ROOT_DIR)/dist does not exist.  Making a new dir there."
+	mkdir "$(ROOT_DIR)/dist"
 
 install-dist-reqs:
 	pip install -r requirements-build.txt
