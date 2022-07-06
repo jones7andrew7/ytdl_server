@@ -1,0 +1,4 @@
+global-exclude *.pyc
+include ytdl_server/templates/*.html
+include ytdl_server/static/favicon.ico
+include ytdl_server/static/style.css

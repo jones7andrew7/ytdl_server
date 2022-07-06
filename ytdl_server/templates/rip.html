@@ -1,0 +1,30 @@
+<!doctype html>
+<title>YTDL Server</title>
+<head>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script>
+    setInterval(showProgress, 2000);
+    function showProgress() {
+      const xmlhttp = new XMLHttpRequest();
+      xmlhttp.onload = function() {
+        const myObj = JSON.parse(this.responseText);
+        document.getElementById("prog").innerHTML = myObj.progress;
+      };
+      xmlhttp.open("GET", {{ url_for("get_job_progress") }});
+      xmlhttp.send();
+    }
+  </script>
+</head>
+<h2>Links:</h2>
+<div>
+  <a href="/rip">rip</a><br>
+  <a href="/browse/">browse</a>
+</div>
+  <h2>Provide the watch url to download</h2>
+<div>
+  <form method="post">
+    <label for="mylabel">Link to download:</label>
+    <input type="text" id="mylabel" name="link">
+  </form>
+  <span id="progWrapper">Progress: <span id="prog">100</span>%</span>
+</div>
